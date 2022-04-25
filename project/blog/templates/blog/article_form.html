@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block main %}
+<form method="post" enctype="multipart/form-data" class="mb-5 mt-5">
+    {% csrf_token %}
+
+    {% if from.errors %}
+    {% for field in form %}
+    {% for error in field.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    {% endfor %}
+    {% endif %}
+
+    {{ form.as_p }}
+
+    {% if 'update' in request.path %}
+    <button type="submit" class="btn btn-primary">Yangilash</button>
+    {% else %}
+    <button type="submit" class="btn btn-primary">Qo'shish</button>
+    {% endif %}
+</form>
+
+
+{% endblock main %}

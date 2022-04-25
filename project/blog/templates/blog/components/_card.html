@@ -1,0 +1,40 @@
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'blog/css/photo.css' %}">
+{% endblock style %}
+
+<div class="card text-justify">
+    <div class="card-header text-center">
+        {{ article.category.title }}
+    </div>
+    <div class="card-body">
+        {% if 'article' in request.path %}
+        <div class="card-body">
+            <h5 class="card-title text-center">{{ article.title }}</h5>
+            <p class="card-text">{{ article.content|linebreaks }}</p>
+            <a href="{% url 'article_update' article.pk %}" class="btn btn-primary">Taxrirlash</a>
+            <a href="{% url 'article_delete' article.pk %}" class="btn btn-danger">O'chirish</a>
+        </div>
+        {% else %}
+        <h5 class="card-title text-center">{{ article.title }}</h5>
+        <div class="d-flex">
+            {% if article.photo %}
+            <img src="{{ article.photo.url }}" width="200px" class="card-photo">
+            {% else %}
+            <img src="http://static.norma.uz/images/141831_9d605d80b1ba5cd0bb445085e083.jpg" width="200px"
+                 class="card-photo">
+            {% endif %}
+            <div>
+                <p class="card-text">{{ article.content|truncatewords:20|linebreaks }}</p>
+            </div>
+        </div>
+        <div class="text-center">
+            <a href="{% url 'article_details' article.pk %}" class="btn btn-primary">Batafsil</a>
+        </div>
+        {% endif %}
+    </div>
+    <div class="card-footer text-muted">
+        {{ article.created_at }}
+    </div>
+</div>

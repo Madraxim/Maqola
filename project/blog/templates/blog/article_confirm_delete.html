@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+<form method="post">
+    {% csrf_token %}
+    <p>
+        "{{ article.title }}" maqolani o'chirishini xoxlaysizmi?
+    </p>
+    <input type="submit" value="Ha o'chiraman" class="btn btn-danger">
+    <a class="btn btn-primary" href="{% url 'article_details' article.pk %}">Ortga</a>
+</form>
+{% endblock main %}
